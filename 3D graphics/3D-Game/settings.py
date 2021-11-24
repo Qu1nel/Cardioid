@@ -1,10 +1,11 @@
 __all__ = (
-    'WIDTH', 'HEIGHT',
+    'WIDTH', 'HEIGHT', 'FPS',
     'HALF_WIDTH', 'HALF_HEIGHT',
     'WHITE', 'BLACK', 'RED', 'GREEN', 'BLUE', 'DARKGRAY', 'PURPLE',
     'player_pos', 'player_angle', 'player_speed'
 )
 # game settings
+FPS = 120
 WIDTH = 1600
 HEIGHT = 900
 HALF_WIDTH = WIDTH // 2

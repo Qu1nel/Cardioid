@@ -6,8 +6,10 @@ from settings import *
 
 
 class Player(object):
+    __slots__ = 'x', 'y', 'angle', 'speed', 'sensitivity'
+
     def __init__(self):
-        self.position = dict(x=player_pos[0], y=player_pos[1])
+        self.x, self.y = player_pos
         self.angle = player_angle
         self.speed = player_speed
         self.sensitivity = 0.02
@@ -15,13 +17,13 @@ class Player(object):
     def movement(self):
         keys = pg.key.get_pressed()
         if keys[pg.K_w]:
-            self.position['y'] -= self.speed
+            self.y -= self.speed
         if keys[pg.K_s]:
-            self.position['y'] += self.speed
+            self.y += self.speed
         if keys[pg.K_d]:
-            self.position['x'] += self.speed
+            self.x += self.speed
         if keys[pg.K_a]:
-            self.position['x'] -= self.speed
+            self.x -= self.speed
         if keys[pg.K_LEFT]:
             self.angle -= self.sensitivity
         if keys[pg.K_RIGHT]:
@@ -29,4 +31,4 @@ class Player(object):
 
     @property
     def pos(self) -> Tuple:
-        return self.position['x'], self.position['y']
+        return self.x, self.y
