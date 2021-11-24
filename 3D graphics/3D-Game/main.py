@@ -4,6 +4,7 @@ from math import cos, sin
 import pygame as pg
 
 from Player import Player
+from map import world_map
 from settings import *
 
 
@@ -24,18 +25,22 @@ class App(object):
                      (self.player.x + self.width * cos(self.player.angle),
                       self.player.y + self.width * sin(self.player.angle)))
 
+        for x, y in world_map:
+            print(x, y)
+            pg.draw.rect(self.screen, DARKGRAY, (x, y, TILE, TILE), 2)
+
         pg.display.update()
 
     def run(self) -> None:
         while True:
             self.player.movement()
-            self.draw()
-            print(self.player.angle)
+
             for event in pg.event.get():
                 if event.type == pg.QUIT:
                     pg.quit()
                     sys.exit()
 
+            self.draw()
             self.clock.tick(FPS)
 
 
