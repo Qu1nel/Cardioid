@@ -2,7 +2,7 @@ __all__ = (
     'WIDTH', 'HEIGHT', 'FPS',
     'HALF_WIDTH', 'HALF_HEIGHT', 'TILE',
     'WHITE', 'BLACK', 'RED', 'GREEN', 'BLUE', 'DARKGRAY', 'PURPLE',
-    'player_pos', 'player_angle', 'player_speed'
+    'player_pos', 'player_angle', 'player_speed', 'sensitivity'
 )
 # game settings
 FPS = 120
@@ -15,7 +15,8 @@ TILE = 32
 # player
 player_pos = (HALF_WIDTH, HALF_HEIGHT)
 player_angle = 0
-player_speed = 2
+player_speed = 3
+sensitivity = 0.05
 
 # colors
 WHITE = (255, 255, 255)

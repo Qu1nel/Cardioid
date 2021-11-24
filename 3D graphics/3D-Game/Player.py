@@ -12,7 +12,7 @@ class Player(object):
         self.x, self.y = player_pos
         self.angle = player_angle
         self.speed = player_speed
-        self.sensitivity = 0.02
+        self.sensitivity = sensitivity
 
     def movement(self):
         keys = pg.key.get_pressed()

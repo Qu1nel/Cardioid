@@ -26,7 +26,6 @@ class App(object):
                       self.player.y + self.width * sin(self.player.angle)))
 
         for x, y in world_map:
-            print(x, y)
             pg.draw.rect(self.screen, DARKGRAY, (x, y, TILE, TILE), 2)
 
         pg.display.update()
