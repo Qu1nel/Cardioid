@@ -1,3 +1,4 @@
+from math import cos, sin
 from typing import Tuple
 
 import pygame as pg
@@ -15,15 +16,21 @@ class Player(object):
         self.sensitivity = sensitivity
 
     def movement(self):
+        sin_a = sin(self.angle)
+        cos_a = cos(self.angle)
         keys = pg.key.get_pressed()
         if keys[pg.K_w]:
-            self.y -= self.speed
+            self.y += self.speed * sin_a
+            self.x += self.speed * cos_a
         if keys[pg.K_s]:
-            self.y += self.speed
+            self.y += -self.speed * sin_a
+            self.x += -self.speed * cos_a
         if keys[pg.K_d]:
-            self.x += self.speed
+            self.y += self.speed * cos_a
+            self.x += -self.speed * sin_a
         if keys[pg.K_a]:
-            self.x -= self.speed
+            self.y += -self.speed * cos_a
+            self.x += self.speed * sin_a
         if keys[pg.K_LEFT]:
             self.angle -= self.sensitivity
         if keys[pg.K_RIGHT]:

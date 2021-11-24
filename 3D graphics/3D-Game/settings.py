@@ -15,8 +15,8 @@ TILE = 32
 # player
 player_pos = (HALF_WIDTH, HALF_HEIGHT)
 player_angle = 0
-player_speed = 3
-sensitivity = 0.05
+player_speed = 2
+sensitivity = 0.03
 
 # colors
 WHITE = (255, 255, 255)
