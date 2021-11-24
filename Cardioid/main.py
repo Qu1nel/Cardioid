@@ -12,7 +12,7 @@ class Cardioid(object):
         self.translate = (self.app.screen.get_width() // 2, self.app.screen.get_height() // 2)
         self.counter, self.inc = (0, 0.01)
 
-    def get_color(self):
+    def get_color(self) -> pg.Color:
         self.counter += self.inc
         if 0 < self.counter < 1:
             self.counter, self.inc = (self.counter, self.inc)
