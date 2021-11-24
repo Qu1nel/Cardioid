@@ -5,6 +5,7 @@ import pygame as pg
 
 from Player import Player
 from map import world_map
+from ray_casting import ray_casting
 from settings import *
 
 
@@ -20,13 +21,9 @@ class App(object):
     def draw(self) -> None:
         self.screen.fill(BLACK)
 
-        pg.draw.circle(self.screen, GREEN, self.player.pos, 13)
-        pg.draw.line(self.screen, GREEN, self.player.pos,
-                     (self.player.x + self.width * cos(self.player.angle),
-                      self.player.y + self.width * sin(self.player.angle)))
+        # w
 
-        for x, y in world_map:
-            pg.draw.rect(self.screen, DARKGRAY, (x, y, TILE, TILE), 2)
+        ray_casting(self.screen, self.player.pos, self.player.angle)
 
         pg.display.update()
 

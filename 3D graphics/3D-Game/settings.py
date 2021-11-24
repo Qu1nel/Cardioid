@@ -1,8 +1,11 @@
+from math import tan, pi
+
 __all__ = (
     'WIDTH', 'HEIGHT', 'FPS',
     'HALF_WIDTH', 'HALF_HEIGHT', 'TILE',
     'WHITE', 'BLACK', 'RED', 'GREEN', 'BLUE', 'DARKGRAY', 'PURPLE',
-    'player_pos', 'player_angle', 'player_speed', 'sensitivity'
+    'player_pos', 'player_angle', 'player_speed', 'sensitivity',
+    'FOV', 'HALF_FOV', 'NUM_RAY', 'MAX_DEPTH', 'DELTA_ANGLE', 'DIST', 'PROJ_RATIO', 'SCALE'
 )
 # game settings
 FPS = 120
@@ -17,6 +20,16 @@ player_pos = (HALF_WIDTH, HALF_HEIGHT)
 player_angle = 0
 player_speed = 2
 sensitivity = 0.03
+
+# ray casting settings
+FOV = pi / 3
+HALF_FOV = FOV / 2
+NUM_RAY = 70
+MAX_DEPTH = 500
+DELTA_ANGLE = FOV / NUM_RAY
+DIST = NUM_RAY / (2 * tan(HALF_FOV))
+PROJ_RATIO = DIST * TILE * 10
+SCALE = WIDTH // NUM_RAY
 
 # colors
 WHITE = (255, 255, 255)
