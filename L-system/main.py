@@ -38,14 +38,19 @@ class LSystem(object):
         self.axiom = axiom
         self.gens = gens
 
+    def get_result(self):
+        for gen in range(self.gens):
+            self.axiom = self.apply_rules()
+
     def apply_rules(self):
         return ''.join([self.rules[char] for char in self.axiom])
 
 
 class App(object):
-    def __init__(self):
+    def __init__(self, rule: Rules = Rules(config.rules['Honeycombs'])):
         self.width, self.height = (config.WIDTH, config.HEIGHT)
-        self.l_system = LSystem(config.axiom, config.rules, config.gens)
+        self.__rules = rule
+        self.l_system = LSystem(config.axiom, self.__rules, config.gens)
         # screen settings
         self.screen = turtle.Screen()
         self.screen.setup(self.width, self.height)
@@ -59,13 +64,20 @@ class App(object):
         self.__kevin.color('yellow')
 
     @property
+    def rules(self) -> Rules:
+        return self.__rules
+
+    @rules.setter
+    def rules(self, rule: Rules) -> None:
+        self.__rules = rule
+        self.l_system = LSystem(config.axiom, self.__rules, config.gens)
+
+    @property
     def turtle(self):
         return self.__kevin
 
     def draw(self) -> None:
-        self.turtle.setheading(0)
-        self.turtle.goto(0, 0)
-        self.turtle.clear()
+        self.l_system.get_result()
 
         for char in self.l_system.axiom:
             if char == self.l_system.rules[0]:
@@ -75,19 +87,18 @@ class App(object):
                 self.turtle.right(60)
                 self.turtle.forward(config.step)
 
-        self.l_system.axiom = self.l_system.apply_rules()
-
     def run(self) -> None:
-        for gen in range(self.l_system.gens):
-            turtle.pencolor('white')
-            turtle.goto(-self.width // 2 + 60, -self.height // 2 + 60)
-            turtle.clear()
-            turtle.write(f'generation: {gen}', font=('Arial', 60, 'normal'))
+        turtle.pencolor('white')
+        turtle.goto(-self.width // 2 + 60, -self.height // 2 + 60)
+        turtle.clear()
+        turtle.write(f'generation: {self.l_system.gens}', font=('Arial', 60, 'normal'))
 
-            self.draw()
+        self.draw()
 
         self.screen.exitonclick()
 
 
 if __name__ == '__main__':
-    App().run()
+    app = App()
+    app.rules = config.rules['Honeycombs']
+    app.run()

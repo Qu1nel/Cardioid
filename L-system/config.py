@@ -1,9 +1,9 @@
 WIDTH = 1600
 HEIGHT = 900
 
-gens = 98
+gens = 30
 axiom = 'A'
-rules = {'A': 'AB', 'B': 'A'}
+rules = {'Honeycombs': {'A': 'AB', 'B': 'A'}, 'Sierpiński triangle': ...}
 
 # turtle settings (px)
 step = 50
