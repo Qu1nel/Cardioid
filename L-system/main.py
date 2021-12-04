@@ -6,18 +6,22 @@ import config
 class Rules(object):
     """semi-dictionary, semi-list"""
 
-    __slots__ = ('__list', '__dict', 'dict')
+    __slots__ = ('__list', '__dict')
 
-    def __init__(self, keys: dict = {}, **kwargs):
-        for key in kwargs:
-            if isinstance(key, (int, float)):
-                raise ValueError("The keys can't be 'int' or 'float'")
+    def __init__(self, keys: dict = None, **kwargs):
+        if not keys and not kwargs:
+            raise TypeError("Rules() takes 1 positional arguments but 0 was given")
+        if keys is None and kwargs:
+            keys = kwargs
+        elif keys and kwargs:
+            keys = keys | kwargs
+
         for key in keys:
             if isinstance(key, (int, float)):
                 raise ValueError("The keys can't be 'int' or 'float'")
 
-        self.__dict = keys if keys else kwargs
-        self.__list = list(keys) if keys else list(kwargs)
+        self.__dict = keys
+        self.__list = list(keys)
 
     def __getitem__(self, item):
         if isinstance(item, int):
