@@ -65,9 +65,9 @@ class App(object):
         self.screen.title(f'generation: {config.gens}')
         # turtle settings
         self.__kevin = turtle.Turtle()
-        self.__kevin.pensize(3)
+        self.__kevin.pensize(2)
         self.__kevin.speed(0)
-        self.__kevin.setpos(0, 0)
+        self.__kevin.setpos(0, -self.height // 2)
         self.__kevin.color('PURPLE')
 
     @property
@@ -114,12 +114,33 @@ class App(object):
 
         def _koch_snowflake(obj):
             for char in obj.l_system.axiom:
-                if char  == obj.l_system.rules[0]:
+                if char == obj.l_system.rules[0]:
                     obj.turtle.forward(5)
                 elif char == '+':
                     obj.turtle.right(60)
                 elif char == '-':
                     obj.turtle.left(60)
+
+        def _plant(obj):
+            stack = []
+            obj.turtle.left(90)
+            obj.turtle.goto((0, -300))
+            for char in obj.l_system.axiom:
+                if char == obj.l_system.rules[1]:
+                    obj.turtle.forward(5)
+                elif char == '+':
+                    obj.turtle.right(22.5)
+                elif char == '-':
+                    obj.turtle.left(22.5)
+                elif char == '[':
+                    angle_, pos_ = obj.turtle.heading(), obj.turtle.pos()
+                    stack.append((angle_, pos_))
+                elif char == ']':
+                    angle_, pos_ = stack.pop()
+                    obj.turtle.setheading(angle_)
+                    obj.turtle.penup()
+                    obj.turtle.goto(pos_)
+                    obj.turtle.pendown()
 
         self.l_system.get_result()
 
@@ -131,6 +152,8 @@ class App(object):
             _dragon_curve(self)
         elif self.mode.lower() == 'koch snowflake':
             _koch_snowflake(self)
+        elif self.mode.lower() == 'plant':
+            _plant(self)
 
     def run(self) -> None:
         self.draw()
@@ -139,5 +162,5 @@ class App(object):
 
 if __name__ == '__main__':
     app = App()
-    app.rules = 'Koch snowflake'  # all rules in the config (module) in the rules (dict)
+    app.rules = 'Plant'  # all rules in the config (module) in the rules (dict) + change gens
     app.run()
