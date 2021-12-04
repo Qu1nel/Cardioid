@@ -51,10 +51,11 @@ class LSystem(object):
 
 
 class App(object):
-    def __init__(self, rule: Rules = Rules(config.rules['Honeycombs'])):
+    def __init__(self, rule: Rules = Rules(config.rules['Honeycombs'][0])):
         self.width, self.height = (config.WIDTH, config.HEIGHT)
+        self.mode = 'honeycombs'
         self.__rules = rule
-        self.l_system = LSystem(config.axiom, self.__rules, config.gens)
+        self.l_system = LSystem(config.rules['Honeycombs'][1], self.__rules, config.gens)
         # screen settings
         self.screen = turtle.Screen()
         self.screen.setup(self.width, self.height)
@@ -72,24 +73,29 @@ class App(object):
         return self.__rules
 
     @rules.setter
-    def rules(self, rule: Rules) -> None:
-        self.__rules = rule
-        self.l_system = LSystem(config.axiom, self.__rules, config.gens)
+    def rules(self, rule: str) -> None:
+        self.__rules = config.rules[rule][0]
+        self.l_system = LSystem(config.rules[rule][1], self.__rules, config.gens)
+        self.mode = rule
 
     @property
     def turtle(self):
         return self.__kevin
 
     def draw(self) -> None:
+        def _honeycombs(ojb):
+            for char in ojb.l_system.axiom:
+                if char == ojb.l_system.rules[0]:
+                    ojb.turtle.left(60)
+                    ojb.turtle.forward(config.step)
+                elif char == ojb.l_system.rules[1]:
+                    ojb.turtle.right(60)
+                    ojb.turtle.forward(config.step)
+
         self.l_system.get_result()
 
-        for char in self.l_system.axiom:
-            if char == self.l_system.rules[0]:
-                self.turtle.left(60)
-                self.turtle.forward(config.step)
-            elif char == self.l_system.rules[1]:
-                self.turtle.right(60)
-                self.turtle.forward(config.step)
+        if self.mode.lower() == 'honeycombs':
+            _honeycombs(self)
 
     def run(self) -> None:
         turtle.pencolor('white')
@@ -104,5 +110,6 @@ class App(object):
 
 if __name__ == '__main__':
     app = App()
-    app.rules = config.rules['Honeycombs']
+    app.rules = 'Honeycombs'  # all rules in the config (module) in the rules (dict)
+    # print(app.mode, app.l_system.axiom, app.l_system.rules)
     app.run()
