@@ -144,8 +144,8 @@ class App(object):
                     obj.turtle.pendown()
 
         def _rplant(obj):
-            step = 80
-            angle = lambda: randint(0, 45)
+            step = 90
+            angle = lambda: randint(0, 38)
             color = [0.35, 0.2, 0.0]
             thickness = 20
             stack = []
