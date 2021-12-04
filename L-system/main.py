@@ -1,5 +1,4 @@
 import sys
-
 import pygame as pg
 
 import config
@@ -12,10 +11,7 @@ class LSystem(object):
         self.gens = gens
 
     def apply_rules(self):
-        result = []
-        for char in self.axiom:
-            result.append(self.rules[char])
-        return ''.join(result)
+        return ''.join([self.rules[char] for char in self.axiom])
 
     def process(self):
         for gen in range(self.gens):
