@@ -87,15 +87,19 @@ class App(object):
 
     def draw(self) -> None:
         def _honeycombs(obj):
+            angle = 60
+            step = 50
             for char in obj.l_system.axiom:
                 if char == obj.l_system.rules[0]:
-                    obj.turtle.left(60)
-                    obj.turtle.forward(50)
+                    obj.turtle.left(angle)
+                    obj.turtle.forward(step)
                 elif char == obj.l_system.rules[1]:
-                    obj.turtle.right(60)
-                    obj.turtle.forward(50)
+                    obj.turtle.right(angle)
+                    obj.turtle.forward(step)
 
         def _sierpinski_triangle(obj):
+            angle = 120
+            step = 8
             for char in obj.l_system.axiom:
                 if char in (obj.l_system.rules[0], obj.l_system.rules[1]):
                     obj.turtle.forward(8)
@@ -105,34 +109,40 @@ class App(object):
                     obj.turtle.left(120)
 
         def _dragon_curve(obj):
+            angle = 90
+            step = 4
             for char in obj.l_system.axiom:
                 if char in (obj.l_system.rules[0], obj.l_system.rules[1]):
-                    obj.turtle.forward(4)
+                    obj.turtle.forward(step)
                 elif char == '+':
-                    obj.turtle.right(90)
+                    obj.turtle.right(angle)
                 elif char == '-':
-                    obj.turtle.left(90)
+                    obj.turtle.left(angle)
 
         def _koch_snowflake(obj):
+            angle = 60
+            step = 5
             for char in obj.l_system.axiom:
                 if char == obj.l_system.rules[0]:
-                    obj.turtle.forward(5)
+                    obj.turtle.forward(step)
                 elif char == '+':
-                    obj.turtle.right(60)
+                    obj.turtle.right(angle)
                 elif char == '-':
-                    obj.turtle.left(60)
+                    obj.turtle.left(angle)
 
         def _plant(obj):
+            step = 5
+            angle = 22.5
             stack = []
             obj.turtle.left(90)
             obj.turtle.goto((0, -300))
             for char in obj.l_system.axiom:
                 if char == obj.l_system.rules[1]:
-                    obj.turtle.forward(5)
+                    obj.turtle.forward(step)
                 elif char == '+':
-                    obj.turtle.right(22.5)
+                    obj.turtle.right(angle)
                 elif char == '-':
-                    obj.turtle.left(22.5)
+                    obj.turtle.left(angle)
                 elif char == '[':
                     angle_, pos_ = obj.turtle.heading(), obj.turtle.pos()
                     stack.append((angle_, pos_))
