@@ -102,11 +102,11 @@ class App(object):
             step = 8
             for char in obj.l_system.axiom:
                 if char in (obj.l_system.rules[0], obj.l_system.rules[1]):
-                    obj.turtle.forward(8)
+                    obj.turtle.forward(step)
                 elif char == '+':
-                    obj.turtle.right(120)
+                    obj.turtle.right(angle)
                 elif char == '-':
-                    obj.turtle.left(120)
+                    obj.turtle.left(angle)
 
         def _dragon_curve(obj):
             angle = 90
@@ -130,7 +130,7 @@ class App(object):
                 elif char == '-':
                     obj.turtle.left(angle)
 
-        def _plant(obj):
+        def _tree(obj):
             step = 5
             angle = 22.5
             stack = []
@@ -153,7 +153,7 @@ class App(object):
                     obj.turtle.goto(pos_)
                     obj.turtle.pendown()
 
-        def _rplant(obj):
+        def _realtree(obj):
             step = 90
             angle = lambda: randint(0, 38)
             color = [0.35, 0.2, 0.0]
@@ -196,10 +196,10 @@ class App(object):
             _dragon_curve(self)
         elif self.mode.lower() == 'koch snowflake':
             _koch_snowflake(self)
-        elif self.mode.lower() == 'plant':
-            _plant(self)
-        if self.mode.lower() == 'rplant':
-            _rplant(self)
+        elif self.mode.lower() == 'tree':
+            _tree(self)
+        if self.mode.lower() == 'realistic tree':
+            _realtree(self)
 
     def run(self) -> None:
         self.draw()
@@ -208,5 +208,5 @@ class App(object):
 
 if __name__ == '__main__':
     app = App()
-    app.rules = 'RPlant'  # all rules in the config (module) in the rules (dict) + change gens
+    app.rules = 'Realistic Tree'  # all rules in the config (module) in the rules (dict) + change gens
     app.run()

@@ -7,6 +7,6 @@ rules = {
     'Sierpinski triangle': ({'F': 'F-G+F+G-F', 'G': 'GG'}, 'F'),
     'Dragon curve': ({'X': 'X+YF+', 'Y': '-FX-Y'}, 'XY'),
     'Koch snowflake': ({'F': 'F-F++F-F'}, 'F++F++F'),
-    'Plant': ({'X': 'F[+X]F[-X]+X', 'F': 'FF'}, 'X'),
-    'RPlant': ({'X': 'F[@[-X]+X]'}, 'X')
+    'Tree': ({'X': 'F[+X]F[-X]+X', 'F': 'FF'}, 'X'),
+    'Realistic Tree': ({'X': 'F[@[-X]+X]'}, 'X')
 }
