@@ -1,6 +1,27 @@
 import sys
-import config
+
 import pygame as pg
+
+import config
+
+
+class LSystem(object):
+    def __init__(self, axiom: str = 'A', rules=None, gens: int = 10):
+        self.rules = dict(A='AB', B='A') if rules is None else rules
+        self.axiom = axiom
+        self.gens = gens
+
+    def apply_rules(self):
+        result = []
+        for char in self.axiom:
+            result.append(self.rules[char])
+        return ''.join(result)
+
+    def process(self):
+        for gen in range(self.gens):
+            input()
+            print(f'generation {gen}: {self.axiom}')
+            self.axiom = self.apply_rules()
 
 
 class App(object):
@@ -26,4 +47,5 @@ class App(object):
 
 
 if __name__ == '__main__':
-    App().run()
+    LSystem(axiom=config.axiom, rules=config.rules, gens=config.gens).process()
+    # App().run()
