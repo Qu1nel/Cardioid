@@ -47,7 +47,7 @@ class LSystem(object):
             self.axiom = self.apply_rules()
 
     def apply_rules(self):
-        return ''.join([self.rules[char] for char in self.axiom])
+        return ''.join([self.rules[char] if char in self.rules else char for char in self.axiom])
 
 
 class App(object):
@@ -62,11 +62,13 @@ class App(object):
         self.screen.screensize(3 * self.width, 3 * self.height)
         self.screen.bgcolor('black')
         self.screen.delay(0)
+        self.screen.title(f'generation: {config.gens}')
         # turtle settings
         self.__kevin = turtle.Turtle()
         self.__kevin.pensize(3)
         self.__kevin.speed(0)
-        self.__kevin.color('yellow')
+        self.__kevin.setpos(0, 0)
+        self.__kevin.color('PURPLE')
 
     @property
     def rules(self) -> Rules:
@@ -83,33 +85,59 @@ class App(object):
         return self.__kevin
 
     def draw(self) -> None:
-        def _honeycombs(ojb):
-            for char in ojb.l_system.axiom:
-                if char == ojb.l_system.rules[0]:
-                    ojb.turtle.left(60)
-                    ojb.turtle.forward(config.step)
-                elif char == ojb.l_system.rules[1]:
-                    ojb.turtle.right(60)
-                    ojb.turtle.forward(config.step)
+        def _honeycombs(obj):
+            for char in obj.l_system.axiom:
+                if char == obj.l_system.rules[0]:
+                    obj.turtle.left(60)
+                    obj.turtle.forward(50)
+                elif char == obj.l_system.rules[1]:
+                    obj.turtle.right(60)
+                    obj.turtle.forward(50)
+
+        def _sierpinski_triangle(obj):
+            for char in obj.l_system.axiom:
+                if char in (obj.l_system.rules[0], obj.l_system.rules[1]):
+                    obj.turtle.forward(8)
+                elif char == '+':
+                    obj.turtle.right(120)
+                elif char == '-':
+                    obj.turtle.left(120)
+
+        def _dragon_curve(obj):
+            for char in obj.l_system.axiom:
+                if char in (obj.l_system.rules[0], obj.l_system.rules[1]):
+                    obj.turtle.forward(4)
+                elif char == '+':
+                    obj.turtle.right(90)
+                elif char == '-':
+                    obj.turtle.left(90)
+
+        def _koch_snowflake(obj):
+            for char in obj.l_system.axiom:
+                if char  == obj.l_system.rules[0]:
+                    obj.turtle.forward(5)
+                elif char == '+':
+                    obj.turtle.right(60)
+                elif char == '-':
+                    obj.turtle.left(60)
 
         self.l_system.get_result()
 
         if self.mode.lower() == 'honeycombs':
             _honeycombs(self)
+        elif self.mode.lower() == 'sierpinski triangle':
+            _sierpinski_triangle(self)
+        elif self.mode.lower() == 'dragon curve':
+            _dragon_curve(self)
+        elif self.mode.lower() == 'koch snowflake':
+            _koch_snowflake(self)
 
     def run(self) -> None:
-        turtle.pencolor('white')
-        turtle.goto(-self.width // 2 + 60, -self.height // 2 + 60)
-        turtle.clear()
-        turtle.write(f'generation: {self.l_system.gens}', font=('Arial', 60, 'normal'))
-
         self.draw()
-
         self.screen.exitonclick()
 
 
 if __name__ == '__main__':
     app = App()
-    app.rules = 'Honeycombs'  # all rules in the config (module) in the rules (dict)
-    # print(app.mode, app.l_system.axiom, app.l_system.rules)
+    app.rules = 'Koch snowflake'  # all rules in the config (module) in the rules (dict)
     app.run()
