@@ -1,4 +1,5 @@
 import turtle
+from random import randint
 
 import config
 
@@ -142,6 +143,39 @@ class App(object):
                     obj.turtle.goto(pos_)
                     obj.turtle.pendown()
 
+        def _rplant(obj):
+            step = 80
+            angle = lambda: randint(0, 45)
+            color = [0.35, 0.2, 0.0]
+            thickness = 20
+            stack = []
+            obj.turtle.left(90)
+            obj.turtle.pensize(thickness)
+            for char in obj.l_system.axiom:
+                obj.turtle.color(color)
+                if char in ('X', 'F'):
+                    obj.turtle.forward(step)
+                elif char == '@':
+                    step -= 6
+                    color[1] += 0.04
+                    thickness -= 2
+                    thickness = max(1, thickness)
+                    obj.turtle.pensize(thickness)
+                elif char == '+':
+                    obj.turtle.right(angle())
+                elif char == '-':
+                    obj.turtle.left(angle())
+                elif char == '[':
+                    angle_, pos_ = obj.turtle.heading(), obj.turtle.pos()
+                    stack.append((angle_, pos_, thickness, step, color[1]))
+                elif char == ']':
+                    angle_, pos_, thickness, step, color[1] = stack.pop()
+                    obj.turtle.pensize(thickness)
+                    obj.turtle.setheading(angle_)
+                    obj.turtle.penup()
+                    obj.turtle.goto(pos_)
+                    obj.turtle.pendown()
+
         self.l_system.get_result()
 
         if self.mode.lower() == 'honeycombs':
@@ -154,6 +188,8 @@ class App(object):
             _koch_snowflake(self)
         elif self.mode.lower() == 'plant':
             _plant(self)
+        if self.mode.lower() == 'rplant':
+            _rplant(self)
 
     def run(self) -> None:
         self.draw()
@@ -162,5 +198,5 @@ class App(object):
 
 if __name__ == '__main__':
     app = App()
-    app.rules = 'Plant'  # all rules in the config (module) in the rules (dict) + change gens
+    app.rules = 'RPlant'  # all rules in the config (module) in the rules (dict) + change gens
     app.run()
