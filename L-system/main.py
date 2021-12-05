@@ -57,8 +57,8 @@ class App(object):
         self.mode = 'honeycombs'
         self.__rules = rule
         self.l_system = LSystem(config.rules['Honeycombs'][1], self.__rules, config.gens)
-        # screen settings
         self.screen = turtle.Screen()
+        # screen settings
         self.screen.setup(self.width, self.height)
         self.screen.screensize(3 * self.width, 3 * self.height)
         self.screen.bgcolor('black')
