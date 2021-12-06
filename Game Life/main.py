@@ -29,7 +29,8 @@ class App(object):
         pass
 
     def draw(self) -> None:
-        pass
+        self.screen.fill(c.COLOR_BG)
+        pg.display.update()
 
     def run(self) -> None:
         while True:
