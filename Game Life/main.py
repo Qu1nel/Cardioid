@@ -1,3 +1,4 @@
+import random
 from sys import exit
 
 import pygame as pg
@@ -6,9 +7,9 @@ import config as c
 
 
 class Cell(object):
-    def __init__(self, coord: tuple[int, int], status: bool = False):
+    def __init__(self, coord: tuple[int, int], alive: bool = False):
         assert len(coord) == 2
-        self.alive = status
+        self.alive = alive
         self.__x, self.__y = coord
 
     def __str__(self):
@@ -27,7 +28,7 @@ class GameLife(object):
         self.app = app
         self.sc = sc
         self.color_cell = c.COLOR_CELL
-        self.area = [[Cell(coord=(x, y), alive=True) for x in range(self.app.width // c.SIZE_CELL)]
+        self.area = [[Cell(coord=(x, y), alive=False) for x in range(self.app.width // c.SIZE_CELL)]
                      for y in range(self.app.height // c.SIZE_CELL)]
 
     def draw_area(self):
@@ -39,6 +40,26 @@ class GameLife(object):
                                  color=c.COLOR_CELL,
                                  rect=pg.Rect(normalized(cell.coord), (c.SIZE_CELL - 2, c.SIZE_CELL - 2)))
 
+    def revive_cluster(self):
+        random_cell = random.choice(random.choice(self.area))
+        while random_cell.is_alive():
+            random_cell = random.choice(random.choice(self.area))
+
+        if random.randint(0, 1) == 1:
+            random_cell.alive = True
+
+        X, Y = random_cell.coord
+
+        for _x, _y in ((-1, 1), (0, 1), (1, 1), (1, 0)):
+            try:
+                self.area[Y + _y][X + _x].alive = True if random.randint(1, 4) == 2 else False
+            except IndexError:
+                pass
+            try:
+                self.area[Y - _y][X - _x].alive = True if random.randint(1, 4) == 2 else False
+            except IndexError:
+                pass
+
 
 class App(object):
     def __init__(self):
@@ -47,8 +68,7 @@ class App(object):
         self.clock = pg.time.Clock()
         self.game_life = GameLife(self, self.screen)
 
-    @staticmethod
-    def handle_events() -> None:
+    def handle_events(self) -> None:
         for event in pg.event.get():
             if event.type == pg.QUIT:
                 pg.quit()
@@ -58,7 +78,7 @@ class App(object):
                     pg.quit()
                     exit()
                 elif event.key == pg.K_RETURN:
-                    pass
+                    self.game_life.revive_cluster()
 
     def process(self) -> None:
         pass
