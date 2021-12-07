@@ -40,15 +40,19 @@ class GameLife(object):
                                  color=c.COLOR_CELL,
                                  rect=pg.Rect(normalized(cell.coord), (c.SIZE_CELL - 2, c.SIZE_CELL - 2)))
 
-    def revive_cluster(self):
-        random_cell = random.choice(random.choice(self.area))
-        while random_cell.is_alive():
+    def revive_cluster(self, coord_cell=None):
+        if coord_cell is None:
             random_cell = random.choice(random.choice(self.area))
+            while random_cell.is_alive():
+                random_cell = random.choice(random.choice(self.area))
 
-        if random.randint(0, 1) == 1:
-            random_cell.alive = True
+            if random.randint(0, 1) == 1:
+                random_cell.alive = True
 
-        X, Y = random_cell.coord
+            X, Y = random_cell.coord
+        else:
+            X, Y = coord_cell[0] // c.SIZE_CELL, coord_cell[1] // c.SIZE_CELL
+            self.area[Y][X].alive = True
 
         for _x, _y in ((-1, 1), (0, 1), (1, 1), (1, 0)):
             try:
@@ -102,6 +106,9 @@ class App(object):
                     exit()
                 elif event.key == pg.K_RETURN:
                     self.game_life.revive_cluster()
+            if event.type == pg.MOUSEBUTTONDOWN:
+                if event.button == 1:
+                    self.game_life.revive_cluster(coord_cell=event.pos)
 
     def process(self) -> None:
         self.game_life.next_cycle()

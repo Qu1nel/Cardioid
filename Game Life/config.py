@@ -1,5 +1,5 @@
 # window settings
-WIDTH = 1600
+WIDTH = 1800
 HEIGHT = 900
 SIZE_CELL = 10
 COLOR_BG = (50, 50, 50)
