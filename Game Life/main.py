@@ -60,6 +60,27 @@ class GameLife(object):
             except IndexError:
                 pass
 
+    def next_cycle(self):
+        for row in self.area:
+            for cell in row:
+                number_living = 0
+                X, Y = cell.coord
+                for _x, _y in ((-1, 1), (0, 1), (1, 1), (1, 0)):
+                    try:
+                        number_living += 1 if self.area[Y + _y][X + _x].is_alive() else 0
+                    except IndexError:
+                        pass
+                    try:
+                        number_living += 1 if self.area[Y - _y][X - _x].is_alive() else 0
+                    except IndexError:
+                        pass
+                if cell.is_alive():
+                    if number_living not in (2, 3):
+                        cell.alive = False
+                else:
+                    if number_living == 3:
+                        cell.alive = True
+
 
 class App(object):
     def __init__(self):
@@ -81,7 +102,7 @@ class App(object):
                     self.game_life.revive_cluster()
 
     def process(self) -> None:
-        pass
+        self.game_life.next_cycle()
 
     def draw(self) -> None:
         self.screen.fill(c.COLOR_BG)
