@@ -1,7 +1,7 @@
 WIDTH = 1920
 HEIGHT = 1000
 
-gens = 11
+gens = 12
 rules = {
     'Honeycombs': ({'A': 'AB', 'B': 'A'}, 'A'),
     'Sierpinski triangle': ({'F': 'F-G+F+G-F', 'G': 'GG'}, 'F'),

@@ -114,5 +114,5 @@ class App(object):
 
 if __name__ == '__main__':
     app = App()
-    app.rules = 'Realistic Tree'  # all rules in the config (module) in the rules (dict) + change gens
+    app.rules = 'Honeycombs'  # all rules in the config (module) in the rules (dict) + change gens
     app.run()

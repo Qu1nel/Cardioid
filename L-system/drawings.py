@@ -26,6 +26,7 @@ def _sierpinski_triangle(obj):
 
 
 def _dragon_curve(obj):
+    # gens = 12
     angle = 90
     step = 4
     for char in obj.l_system.axiom:
@@ -50,6 +51,7 @@ def _koch_snowflake(obj):
 
 
 def _tree(obj):
+    # gens 5
     step = 5
     angle = 22.5
     stack = []
