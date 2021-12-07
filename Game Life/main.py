@@ -61,17 +61,19 @@ class GameLife(object):
                 pass
 
     def next_cycle(self):
-        for row in self.area:
-            for cell in row:
+        for line in self.area:
+            for cell in line:
                 number_living = 0
                 X, Y = cell.coord
                 for _x, _y in ((-1, 1), (0, 1), (1, 1), (1, 0)):
                     try:
-                        number_living += 1 if self.area[Y + _y][X + _x].is_alive() else 0
+                        column, row = 0 if Y + _y < 0 else Y + _y, 0 if X + _x < 0 else X + _x
+                        number_living += 1 if self.area[column][row].is_alive() else 0
                     except IndexError:
                         pass
                     try:
-                        number_living += 1 if self.area[Y - _y][X - _x].is_alive() else 0
+                        column, row = 0 if Y - _y < 0 else Y - _y, 0 if X - _x < 0 else X - _x
+                        number_living += 1 if self.area[column][row].is_alive() else 0
                     except IndexError:
                         pass
                 if cell.is_alive():
