@@ -1,6 +1,7 @@
 import random
 from sys import exit
 
+import numpy as np
 import pygame as pg
 
 import config as c
@@ -28,11 +29,11 @@ class GameLife(object):
         self.app = app
         self.sc = sc
         self.color_cell = c.COLOR_CELL
-        self.area = [[Cell(coord=(x, y), alive=False) for x in range(self.app.width // c.SIZE_CELL)]
-                     for y in range(self.app.height // c.SIZE_CELL)]
+        self.area = np.array([np.array([Cell(coord=(x, y), alive=False) for x in range(self.app.width // c.SIZE_CELL)])
+                              for y in range(self.app.height // c.SIZE_CELL)])
 
     def draw_area(self):
-        normalized = lambda coord: [i * c.SIZE_CELL for i in coord]
+        normalized = lambda coord: tuple(i * c.SIZE_CELL for i in coord)
         for row in self.area:
             for cell in row:
                 if cell.is_alive():
@@ -53,6 +54,9 @@ class GameLife(object):
         else:
             X, Y = coord_cell[0] // c.SIZE_CELL, coord_cell[1] // c.SIZE_CELL
             self.area[Y][X].alive = True
+
+        # self.area[Y + 1][X].alive = True
+        # self.area[Y - 1][X].alive = True
 
         for _x, _y in ((-1, 1), (0, 1), (1, 1), (1, 0)):
             try:
@@ -94,6 +98,7 @@ class App(object):
         self.screen = pg.display.set_mode((c.WIDTH, c.HEIGHT))
         self.clock = pg.time.Clock()
         self.game_life = GameLife(self, self.screen)
+        self.pause = False
 
     def handle_events(self) -> None:
         for event in pg.event.get():
@@ -106,12 +111,15 @@ class App(object):
                     exit()
                 elif event.key == pg.K_RETURN:
                     self.game_life.revive_cluster()
+                elif event.key == pg.K_SPACE:
+                    self.pause = not self.pause
             if event.type == pg.MOUSEBUTTONDOWN:
                 if event.button == 1:
                     self.game_life.revive_cluster(coord_cell=event.pos)
 
     def process(self) -> None:
-        self.game_life.next_cycle()
+        if not self.pause:
+            self.game_life.next_cycle()
 
     def draw(self) -> None:
         self.screen.fill(c.COLOR_BG)
