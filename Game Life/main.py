@@ -1,10 +1,13 @@
 import random
 from sys import exit
 
-import numpy as np
 import pygame as pg
 
 import config as c
+
+
+def quick_copy(lst):
+    return [[cell.copy() for cell in row] for row in lst]
 
 
 class Cell(object):
@@ -23,14 +26,18 @@ class Cell(object):
     def coord(self):
         return self.__x, self.__y
 
+    def copy(self):
+        return Cell(coord=self.coord, alive=self.alive)
+
 
 class GameLife(object):
     def __init__(self, app, sc: pg.Surface):
         self.app = app
         self.sc = sc
         self.color_cell = c.COLOR_CELL
-        self.area = np.array([np.array([Cell(coord=(x, y), alive=False) for x in range(self.app.width // c.SIZE_CELL)])
-                              for y in range(self.app.height // c.SIZE_CELL)])
+        self.previous_area = None
+        self.area = [[Cell(coord=(x, y), alive=False) for x in range(self.app.width // c.SIZE_CELL)]
+                     for y in range(self.app.height // c.SIZE_CELL)]
 
     def draw_area(self):
         normalized = lambda coord: tuple(i * c.SIZE_CELL for i in coord)
@@ -55,41 +62,41 @@ class GameLife(object):
             X, Y = coord_cell[0] // c.SIZE_CELL, coord_cell[1] // c.SIZE_CELL
             self.area[Y][X].alive = True
 
-        # self.area[Y + 1][X].alive = True
-        # self.area[Y - 1][X].alive = True
-
         for _x, _y in ((-1, 1), (0, 1), (1, 1), (1, 0)):
             try:
-                self.area[Y + _y][X + _x].alive = True if random.randint(1, 4) == 2 else False
+                self.area[Y + _y][X + _x].alive = bool(random.randint(0, 1)) and bool(random.randint(0, 1))
             except IndexError:
                 pass
             try:
-                self.area[Y - _y][X - _x].alive = True if random.randint(1, 4) == 2 else False
+                self.area[Y - _y][X - _x].alive = bool(random.randint(0, 1)) and bool(random.randint(0, 1))
             except IndexError:
                 pass
 
     def next_cycle(self):
-        for line in self.area:
+        self.previous_area = quick_copy(self.area)
+        for line in self.previous_area:
             for cell in line:
                 number_living = 0
                 X, Y = cell.coord
                 for _x, _y in ((-1, 1), (0, 1), (1, 1), (1, 0)):
                     try:
-                        column, row = 0 if Y + _y < 0 else Y + _y, 0 if X + _x < 0 else X + _x
-                        number_living += 1 if self.area[column][row].is_alive() else 0
+                        column, row = Y + _y if Y + _y > 0 else 0, X + _x if X + _x > 0 else 0
+                        number_living += self.previous_area[column][row].is_alive()
                     except IndexError:
                         pass
                     try:
-                        column, row = 0 if Y - _y < 0 else Y - _y, 0 if X - _x < 0 else X - _x
-                        number_living += 1 if self.area[column][row].is_alive() else 0
+                        column, row = Y - _y if Y - _y > 0 else 0, X - _x if X - _x > 0 else 0
+                        number_living += self.previous_area[column][row].is_alive()
                     except IndexError:
                         pass
                 if cell.is_alive():
                     if number_living not in (2, 3):
-                        cell.alive = False
+                        x, y = cell.coord
+                        self.area[y][x].alive = False
                 else:
                     if number_living == 3:
-                        cell.alive = True
+                        x, y = cell.coord
+                        self.area[y][x].alive = True
 
 
 class App(object):
