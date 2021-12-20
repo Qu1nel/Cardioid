@@ -24,7 +24,7 @@ class Cardioid(object):
     def draw(self) -> None:
         time = pg.time.get_ticks()
         self.radius = abs(math.sin(time * 0.008) - 0.5) * 15 + 350
-        factor = 1 + 0.00025 * time
+        factor = 1 + 0.001 * time
 
         for i in range(self.num_lines):
             theta = (2 * math.pi / self.num_lines) * i

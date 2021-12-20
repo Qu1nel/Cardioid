@@ -36,8 +36,11 @@ class GameLife(object):
         self.sc = sc
         self.color_cell = c.COLOR_CELL
         self.previous_area = None
-        self.area = [[Cell(coord=(x, y), alive=False) for x in range(self.app.width // c.SIZE_CELL)]
-                     for y in range(self.app.height // c.SIZE_CELL)]
+        width_x, height_y = self.app.width // c.SIZE_CELL, self.app.height // c.SIZE_CELL
+        self.area = [
+            [Cell(coord=(x, y), alive=True) if (x == (width_x // 2 - 2)) or (y == (height_y // 2 - 2))
+             else Cell(coord=(x, y)) for x in range(width_x + 1)] for y in range(height_y)
+        ]
 
     def draw_area(self):
         normalized = lambda coord: tuple(i * c.SIZE_CELL for i in coord)
@@ -63,32 +66,22 @@ class GameLife(object):
             self.area[Y][X].alive = True
 
         for _x, _y in ((-1, 1), (0, 1), (1, 1), (1, 0)):
-            try:
-                self.area[Y + _y][X + _x].alive = bool(random.randint(0, 1)) and bool(random.randint(0, 1))
-            except IndexError:
-                pass
-            try:
-                self.area[Y - _y][X - _x].alive = bool(random.randint(0, 1)) and bool(random.randint(0, 1))
-            except IndexError:
-                pass
+            self.area[Y + _y][X + _x].alive = bool(random.randint(0, 1)) and bool(random.randint(0, 1))
+            self.area[Y - _y][X - _x].alive = bool(random.randint(0, 1)) and bool(random.randint(0, 1))
 
     def next_cycle(self):
         self.previous_area = quick_copy(self.area)
-        for line in self.previous_area:
-            for cell in line:
+        for line in self.previous_area[1:-1]:
+            for cell in line[1:-1]:
                 number_living = 0
                 X, Y = cell.coord
                 for _x, _y in ((-1, 1), (0, 1), (1, 1), (1, 0)):
-                    try:
-                        column, row = Y + _y if Y + _y > 0 else 0, X + _x if X + _x > 0 else 0
-                        number_living += self.previous_area[column][row].is_alive()
-                    except IndexError:
-                        pass
-                    try:
-                        column, row = Y - _y if Y - _y > 0 else 0, X - _x if X - _x > 0 else 0
-                        number_living += self.previous_area[column][row].is_alive()
-                    except IndexError:
-                        pass
+                    column, row = Y + _y if Y + _y > 0 else 0, X + _x if X + _x > 0 else 0
+                    number_living += self.previous_area[column][row].is_alive()
+
+                    column, row = Y - _y if Y - _y > 0 else 0, X - _x if X - _x > 0 else 0
+                    number_living += self.previous_area[column][row].is_alive()
+
                 if cell.is_alive():
                     if number_living not in (2, 3):
                         x, y = cell.coord
@@ -105,7 +98,7 @@ class App(object):
         self.screen = pg.display.set_mode((c.WIDTH, c.HEIGHT))
         self.clock = pg.time.Clock()
         self.game_life = GameLife(self, self.screen)
-        self.pause = False
+        self.pause = True
 
     def handle_events(self) -> None:
         for event in pg.event.get():
