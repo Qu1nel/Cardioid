@@ -24,12 +24,12 @@ sensitivity = 0.03
 
 # ray casting settings
 FOV = pi / 3
-HALF_FOV = FOV / 3
-NUM_RAY = 120
-MAX_DEPTH = 700
+HALF_FOV = FOV / 2
+NUM_RAY = 250
+MAX_DEPTH = 600
 DELTA_ANGLE = FOV / NUM_RAY
 DIST = NUM_RAY / (2 * tan(HALF_FOV))
-PROJ_RATIO = DIST * TILE * 10
+PROJ_RATIO = DIST * TILE * 5
 SCALE = WIDTH // NUM_RAY
 
 # colors
