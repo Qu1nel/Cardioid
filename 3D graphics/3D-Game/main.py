@@ -1,30 +1,26 @@
 import sys
-from math import cos, sin
 
 import pygame as pg
 
 from Player import Player
-from map import world_map
-from ray_casting import ray_casting
+from drawing import Drawing
 from settings import *
 
 
 class App(object):
-    __slots__ = ('width', 'height', 'screen', 'clock', 'player')
+    __slots__ = ('width', 'height', 'screen', 'clock', 'player', 'drawing')
 
     def __init__(self):
         self.width, self.height = (WIDTH, HEIGHT)
         self.screen = pg.display.set_mode((WIDTH, HEIGHT))
         self.clock = pg.time.Clock()
         self.player = Player()
+        self.drawing = Drawing(self.screen)
 
     def draw(self) -> None:
         self.screen.fill(BLACK)
-
-        # w
-
-        ray_casting(self.screen, self.player.pos, self.player.angle)
-
+        self.drawing.world(self.player.pos, self.player.angle)
+        self.drawing.fps(self.clock)
         pg.display.update()
 
     def run(self) -> None:

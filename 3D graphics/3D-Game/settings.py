@@ -5,7 +5,7 @@ __all__ = (
     'HALF_WIDTH', 'HALF_HEIGHT', 'TILE',
     'WHITE', 'BLACK', 'RED', 'GREEN', 'BLUE', 'DARKGRAY', 'PURPLE',
     'player_pos', 'player_angle', 'player_speed', 'sensitivity',
-    'FOV', 'HALF_FOV', 'NUM_RAY', 'MAX_DEPTH', 'DELTA_ANGLE', 'DIST', 'PROJ_RATIO', 'SCALE'
+    'FOV', 'HALF_FOV', 'NUM_RAY', 'MAX_DEPTH', 'DELTA_ANGLE', 'DIST', 'PROJ_RATIO', 'SCALE', 'FPS_POS'
 )
 # game settings
 FPS = 120
@@ -14,6 +14,7 @@ HEIGHT = 928
 HALF_WIDTH = WIDTH // 2
 HALF_HEIGHT = HEIGHT // 2
 TILE = 32
+FPS_POS = (5, 5)
 
 # player
 player_pos = (HALF_WIDTH, HALF_HEIGHT)
@@ -23,9 +24,9 @@ sensitivity = 0.03
 
 # ray casting settings
 FOV = pi / 3
-HALF_FOV = FOV / 2
-NUM_RAY = 70
-MAX_DEPTH = 500
+HALF_FOV = FOV / 3
+NUM_RAY = 120
+MAX_DEPTH = 700
 DELTA_ANGLE = FOV / NUM_RAY
 DIST = NUM_RAY / (2 * tan(HALF_FOV))
 PROJ_RATIO = DIST * TILE * 10

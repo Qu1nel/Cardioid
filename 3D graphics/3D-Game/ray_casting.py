@@ -1,5 +1,4 @@
 from math import sin, cos
-from typing import Tuple
 
 import pygame as pg
 
@@ -7,7 +6,7 @@ from map import world_map
 from settings import *
 
 
-def ray_casting(surface, pos: Tuple, angle: float):
+def ray_casting(surface, pos: tuple, angle: float):
     cur_angle = angle - HALF_FOV
     xO, yO = pos
     for ray in range(NUM_RAY):
@@ -19,7 +18,7 @@ def ray_casting(surface, pos: Tuple, angle: float):
             if (x // TILE * TILE, y // TILE * TILE) in world_map:
                 depth *= cos(angle - cur_angle)
                 proj_height = PROJ_RATIO / depth
-                c = 255 / (1 + depth * depth * 0.0001)
+                c = 255 / (1 + depth * depth * 0.00005)
                 color = (c, c, c)
                 pg.draw.rect(surface, color, (ray * SCALE, HALF_HEIGHT - proj_height // 2, SCALE, proj_height))
                 break
