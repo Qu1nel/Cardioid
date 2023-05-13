@@ -1,10 +1,10 @@
 import math
 import sys
 
-import pygame as pg
+import pygame as pg  # type: ignore
 
 
-class Cardioid(object):
+class Cardioid:
     def __init__(self, app):
         self.app = app
         self.radius = 350
@@ -37,7 +37,7 @@ class Cardioid(object):
             pg.draw.aaline(self.app.screen, 'yellow', (x1, y1), (x2, y2))  # 'yellow' = self.get_color()
 
 
-class App(object):
+class App:
     def __init__(self):
         self.width, self.height = (1600, 900)
         self.screen = pg.display.set_mode((self.width, self.height))
@@ -62,4 +62,5 @@ class App(object):
 
 
 if __name__ == '__main__':
+    pg.init()
     App().run()
