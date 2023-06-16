@@ -1,5 +1,5 @@
 <p align="center">
-  <img src=".github/preview.png" width=6000px>
+  <img src="https://github.com/Qu1nel/Cardioid/blob/github/.github/preview.png" width=6000px>
 </p>
 
 <p align="center">
@@ -18,6 +18,19 @@ _The Python interpreter version 3.9+_
 All python dependencies specified in the file [requirements.txt](./requirements.txt)
 
     pip install -r requirements.txt
+
+## Getting Started
+
+Run [`run.py`](./run.py) using the python interpreter
+
+### Windows
+
+    python run.py
+
+### Linux
+
+    python3 run.py
+
 
 ## Developers
 
