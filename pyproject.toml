@@ -1,0 +1,115 @@
+[project]
+name = "Cardioid"
+description = "Cardioid - visualization of an interesting version of this curve in animation"
+version = "1.0"
+readme = "README.md"
+requires-python = ">=3.11"
+
+[[project.authors]]
+name = "Ivan Kovach"
+email = "eeiprex@gmail.com"
+
+[project.license]
+file = "LICENSE"
+
+[project.urls]
+Repository = "https://github.com/Qu1nel/Cardioid"
+
+
+[tool.ruff]
+line-length = 120
+target-version = "py311"
+select = ["ALL"]
+dummy-variable-rgx = "^(_+|(_+[a-zA-Z0-9_]*[a-zA-Z0-9]+?))$"
+exclude = [
+  ".bzr", ".direnv", ".eggs", ".git", ".git-rewrite", ".hg", ".mypy_cache", ".nox", ".pants.d", ".pytype", ".ruff_cache",
+  ".svn", ".tox", ".venv", ".env", "__pypackages__", "__pycache__", "_build", "buck-out", "build", "dist", "node_modules",
+  "venv", "env",
+  ]
+ignore = [
+  # D (pydocstyle)
+  "D100", # Docstring in public module
+  "D203", # Docstring one blank line before class
+  "D213", # Docstring multi-line-summary-second-line
+  # UP (pyupgrade)
+  "UP007", # Use X | Y insted Optional, Union
+  # AHH (flake8-annotations)
+  "ANN002", # Docstring missing-type-args
+  "ANN003", # Docstring missing-type-kwargs
+  "ANN101", # Docstring missing-type-self
+  "ANN102", # Docstring missing-type-cls
+  "ANN401", # Docstring Any type
+  # S (flake8-bandit)
+  "S101", # Detected assert statement
+  "S311", # Detected pseudo-random generators
+  # FBT (flake8-boolean-trap)
+  "FBT001", # Detected boolean positional arg in functions
+  "FBT002", # Detected boolean default value in functions
+  # B (flake8-bugbear)
+  "B006", # Detected mutable arg default
+  "B009", # Detected getattr(obj, ...)
+  "B010", # Detected setattr(obj, ..., ...)
+  # INP (flake8-no-pep420)
+  "INP001", # Check missing __init__.py in packages
+  # PIE (flake8-pie)
+  "PIE796", # Check for enums that contain duplicate values
+  # T (flake8-print)
+  "T201", # Check for print statement
+  "T203", # Check for pprint statement
+  # PYI (flake8-pyi)
+  "PYI001", # Check that type TypeVar, ... def in stubs are prefixed with _
+  "PYI024", # Check use collections.nametuple
+  # RET (flake8-return)
+  "RET504", # Check vars which that immediately precede a return eq assign var
+  # PTH (flake8-use-pathlib)
+  "PTH123", # Check open() instead Path.open()
+  # TD (flake8-todos)
+  "TD002", # Check TODO comments includes an author
+  "TD002", # Check TODO comments includes a links
+  # PGH (pygrep-hooks)
+  "PGH003", # Check 'type: ignore' without annotation warn are intended to be suppressed
+  "PGH004", # Check 'noqa' without annotation diagnostics are intended to be suppressed
+]
+
+
+[tool.ruff.pydocstyle]
+convention = "google"
+
+
+[tool.ruff.per-file-ignores]
+"__init__.py" = ["E402"]
+
+
+[tool.ruff.mccabe]
+max-complexity = 10
+
+
+[tool.mypy]
+python_version = "3.11"
+check_untyped_defs = true
+disallow_untyped_defs = true
+no_implicit_optional = true
+show_error_codes = true
+strict_equality = true
+warn_return_any = true
+warn_unused_configs = true
+warn_redundant_casts = true
+
+
+[[tool.mypy.overrides]]
+module = ['tests.*']
+disallow_untyped_defs = false
+strict_equality = false
+
+
+[tool.pyright]
+include = ["src"]
+exclude = []
+venv = ".venv"
+
+
+[tool.black]
+line-length = 120
+target-version = ["py311"]
+include = '\.pyi?$'
+
