@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://github.com/Qu1nel/Cardioid/blob/github/.github/preview.png" width=6000px>
+  <img src=".github/assets/preview.png" width=600px>
 </p>
 
 <p align="center">
