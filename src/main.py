@@ -1,6 +1,6 @@
 import math
 import sys
-from typing import Any, Protocol
+from typing import Never, Protocol
 
 import pygame as pg  # type: ignore
 
@@ -8,7 +8,7 @@ import pygame as pg  # type: ignore
 class TApp(Protocol):
     """Protocol for App object."""
 
-    screen: Any
+    screen: pg.SurfaceType
 
     def run(self) -> None:
         """Protocol method for run app."""
@@ -101,7 +101,7 @@ class App:
 
     width: int
     height: int
-    screen: pg.Surface
+    screen: pg.SurfaceType
     clock: pg.time.Clock
     cardioid: Cardioid
 
@@ -118,7 +118,7 @@ class App:
         self.cardioid.draw()
         pg.display.update()
 
-    def run(self) -> None:
+    def run(self) -> Never:
         """Draws the window in an infinite loop and also handles events from the user."""
         while True:
             self.draw()
