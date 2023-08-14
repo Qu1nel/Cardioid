@@ -69,7 +69,7 @@
 
 ## About Cardioid
 
-The first OOP python project 💜
+Cardioid - visualization of an interesting version of this curve in animation.
 
 <details>
   <summary><h3 id="view-demo">View demo</h3></summary>
