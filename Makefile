@@ -91,7 +91,7 @@ mypy:  # Use 'mypy' utilite as linter
 	@echo -e
 
 .PHONY: pyright
-pyright:  ## Use 'black' utilite as linter
+pyright:  ## Use 'pyright' utilite as linter
 	@echo -e
 	@echo -e "$(BLUE)Applying pyright..."
 	@echo -e "$(GREEN)===================$(RESET)"
