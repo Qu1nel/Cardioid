@@ -20,7 +20,31 @@ class TApp(Protocol):
 
 
 class Cardioid:
+    """Cardioid curve object class.
+
+    Attributes:
+        app: Application object (as TApp).
+        radius: Cardioid radius value.
+        num_lines: Cardioid number lines.
+        position: The center of the cardioid position on the screen.
+        counter: Counter for tracking cardioid color status.
+        inc: Counter increment value for changing the cardioid color state.
+
+    Methods:
+        get_color(self, /) -> None: Gets a new color (pygame.Color) for cardioid.
+        draw(self, /) -> None: Drawing Cardioid ojbect on display by "self.app".
+
+    """
+
+    app: TApp
+    radius: float
+    num_lines: int
+    position: tuple[int, int]
+    counter: float
+    inc: float
+
     def __init__(self, app: TApp) -> None:
+        """Initializing a cardioid object."""
         self.app = app
         self.radius = 350.0
         self.num_lines = 150
@@ -28,6 +52,12 @@ class Cardioid:
         self.counter, self.inc = (0.0, 0.01)
 
     def get_color(self) -> pg.Color:
+        """Rotates the new cardioid color relative to the counter.
+
+        Returns:
+            pygame.Color
+
+        """
         self.counter += self.inc
         if 0 < self.counter < 1:
             self.counter, self.inc = (self.counter, self.inc)
@@ -37,6 +67,7 @@ class Cardioid:
         return pg.Color("red").lerp("green", self.counter)
 
     def draw(self) -> None:
+        """Draws (self) the figure on the screen."""
         time = pg.time.get_ticks()
         self.radius = abs(math.sin(time * 0.008) - 0.5) * 15 + 350
         factor = 1 + 0.001 * time
@@ -53,18 +84,42 @@ class Cardioid:
 
 
 class App:
+    """Application class for working with a window.
+
+    Attributes:
+        width: Window widths.
+        height: Window heights.
+        screen: Surface for drawing.
+        clock: Tactics for fps.
+        cardioid: Cardioid object.
+
+    Methods:
+        draw(self, /) -> None: Drawing windows with Cardioid on display.
+        run(self, /) -> None: Run app.
+
+    """
+
+    width: int
+    height: int
+    screen: pg.Surface
+    clock: pg.time.Clock
+    cardioid: Cardioid
+
     def __init__(self) -> None:
+        """Initializing a App object."""
         self.width, self.height = (1600, 900)
         self.screen = pg.display.set_mode((self.width, self.height))
         self.clock = pg.time.Clock()
         self.cardioid = Cardioid(self)
 
     def draw(self) -> None:
+        """Draws the screen and cardioid."""
         self.screen.fill("black")
         self.cardioid.draw()
         pg.display.update()
 
     def run(self) -> None:
+        """Draws the window in an infinite loop and also handles events from the user."""
         while True:
             self.draw()
 
