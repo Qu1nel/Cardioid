@@ -9,4 +9,5 @@ pg.init()
 
 def main() -> None:
     """Entry point to the game."""
-    App().run()
+    game = App()
+    game.run()
