@@ -1,0 +1,39 @@
+name: Linting
+
+on:
+  pull_request:
+    branches: [ "main" ]
+  push:
+    branches: [ "main" ]
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        
+      - name: Install Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+      
+      - name: Install dependencies
+        run: |
+          pip install -r requirements.txt
+          pip install ruff
+          pip install mypy
+          pip install pyright
+          pip install black
+
+      - name: Run ruff
+        run: ruff check . --fix
+
+      - name: Run mypy
+        run: mypy .
+
+      - name: Run pyright
+        run: pyright .
+
+      - name: Run black
+        run: black .
