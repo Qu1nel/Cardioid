@@ -48,20 +48,20 @@ class Cardioid:
         self.app = app
         self.radius = 350.0
         self.num_lines = 150
-        self.translate = (self.app.screen.get_width() // 2, self.app.screen.get_height() // 2)
-        self.counter, self.inc = (0.0, 0.01)
+        self.position = (self.app.screen.get_width() // 2, self.app.screen.get_height() // 2)
+        self.counter = 0.0
+        self.inc = 0.0
 
     def get_color(self) -> pg.Color:
-        """Rotates the new cardioid color relative to the counter.
+        """Rotates the new cardioid color (gradient) relative to the counter.
 
         Returns:
             pygame.Color
 
         """
         self.counter += self.inc
-        if 0 < self.counter < 1:
-            self.counter, self.inc = (self.counter, self.inc)
-        else:
+
+        if not (0 < self.counter < 1):
             self.counter, self.inc = (max(min(self.counter, 1), 0), -self.inc)
 
         return pg.Color("red").lerp("green", self.counter)
@@ -69,16 +69,24 @@ class Cardioid:
     def draw(self) -> None:
         """Draws (self) the figure on the screen."""
         time = pg.time.get_ticks()
-        self.radius = abs(math.sin(time * 0.008) - 0.5) * 15 + 350
         factor = 1 + 0.001 * time
+
+        def _get_x(theta: float) -> int:
+            return -int(self.radius * math.cos(theta)) + self.position[0]
+
+        def _get_y(theta: float) -> int:
+            return int(self.radius * math.sin(theta)) + self.position[1]
+
+        self.radius = abs(math.sin(time * 0.008) - 0.5) * 15 + 350
 
         for i in range(self.num_lines):
             theta = (2 * math.pi / self.num_lines) * i
-            x1 = -int(self.radius * math.cos(theta)) + self.translate[0]
-            y1 = int(self.radius * math.sin(theta)) + self.translate[1]
 
-            x2 = -int(self.radius * math.cos(theta * factor)) + self.translate[0]
-            y2 = int(self.radius * math.sin(theta * factor)) + self.translate[1]
+            x1 = _get_x(theta)
+            y1 = _get_y(theta)
+
+            x2 = _get_x(theta * factor)
+            y2 = _get_y(theta * factor)
 
             pg.draw.aaline(self.app.screen, "yellow", (x1, y1), (x2, y2))  # 'yellow' = self.get_color()
 
@@ -107,9 +115,12 @@ class App:
 
     def __init__(self) -> None:
         """Initializing a App object."""
-        self.width, self.height = (1600, 900)
+        self.width = 1600
+        self.height = 900
+
         self.screen = pg.display.set_mode((self.width, self.height))
         self.clock = pg.time.Clock()
+
         self.cardioid = Cardioid(self)
 
     def draw(self) -> None:
