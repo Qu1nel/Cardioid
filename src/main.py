@@ -1,16 +1,31 @@
 import math
 import sys
+from typing import Any, Protocol
 
 import pygame as pg  # type: ignore
 
 
+class TApp(Protocol):
+    """Protocol for App object."""
+
+    screen: Any
+
+    def run(self) -> None:
+        """Protocol method for run app."""
+        ...
+
+    def draw(self) -> None:
+        """Protocol method for drawing app on display."""
+        ...
+
+
 class Cardioid:
-    def __init__(self, app) -> None:
+    def __init__(self, app: TApp) -> None:
         self.app = app
-        self.radius = 350
+        self.radius = 350.0
         self.num_lines = 150
         self.translate = (self.app.screen.get_width() // 2, self.app.screen.get_height() // 2)
-        self.counter, self.inc = (0, 0.01)
+        self.counter, self.inc = (0.0, 0.01)
 
     def get_color(self) -> pg.Color:
         self.counter += self.inc
