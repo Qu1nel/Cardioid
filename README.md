@@ -42,4 +42,3 @@ Run [`run.py`](./run.py) using the python interpreter
 
 This Project Qu1nel.Cardioid in distributive under the **[MIT License](./LICENSE)**, and it also uses those codes that are
 distributed under the **[MIT License](./LICENSE)**.
-
