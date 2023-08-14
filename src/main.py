@@ -138,5 +138,8 @@ class App:
                 if event.type == pg.QUIT:
                     pg.quit()
                     sys.exit()
+                if event.type == pg.KEYDOWN and event.key == pg.K_ESCAPE:
+                    pg.quit()
+                    sys.exit()
 
             self.clock.tick(60)
