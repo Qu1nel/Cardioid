@@ -5,7 +5,7 @@ import pygame as pg  # type: ignore
 
 
 class Cardioid:
-    def __init__(self, app):
+    def __init__(self, app) -> None:
         self.app = app
         self.radius = 350
         self.num_lines = 150
@@ -19,7 +19,7 @@ class Cardioid:
         else:
             self.counter, self.inc = (max(min(self.counter, 1), 0), -self.inc)
 
-        return pg.Color('red').lerp('green', self.counter)
+        return pg.Color("red").lerp("green", self.counter)
 
     def draw(self) -> None:
         time = pg.time.get_ticks()
@@ -34,18 +34,18 @@ class Cardioid:
             x2 = -int(self.radius * math.cos(theta * factor)) + self.translate[0]
             y2 = int(self.radius * math.sin(theta * factor)) + self.translate[1]
 
-            pg.draw.aaline(self.app.screen, 'yellow', (x1, y1), (x2, y2))  # 'yellow' = self.get_color()
+            pg.draw.aaline(self.app.screen, "yellow", (x1, y1), (x2, y2))  # 'yellow' = self.get_color()
 
 
 class App:
-    def __init__(self):
+    def __init__(self) -> None:
         self.width, self.height = (1600, 900)
         self.screen = pg.display.set_mode((self.width, self.height))
         self.clock = pg.time.Clock()
         self.cardioid = Cardioid(self)
 
     def draw(self) -> None:
-        self.screen.fill('black')
+        self.screen.fill("black")
         self.cardioid.draw()
         pg.display.update()
 
@@ -59,4 +59,3 @@ class App:
                     sys.exit()
 
             self.clock.tick(60)
-

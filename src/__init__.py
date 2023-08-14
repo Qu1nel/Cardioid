@@ -7,4 +7,3 @@ pg.init()
 
 def main() -> None:
     App().run()
-
