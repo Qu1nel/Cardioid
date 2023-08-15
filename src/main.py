@@ -4,7 +4,7 @@ from typing import Never
 
 import pygame as pg  # type: ignore
 
-from src.misc import AppType, Position, Singleton
+from src.misc import AppType, Position, Singleton, click_on_cross, press_on_escape
 
 
 class Cardioid(metaclass=Singleton):
@@ -107,10 +107,7 @@ class App(metaclass=Singleton):
             self.draw()
 
             for event in pg.event.get():
-                if event.type == pg.QUIT:
-                    pg.quit()
-                    sys.exit()
-                if event.type == pg.KEYDOWN and event.key == pg.K_ESCAPE:
+                if click_on_cross(event.type) or press_on_escape(event.type, event.key):
                     pg.quit()
                     sys.exit()
 

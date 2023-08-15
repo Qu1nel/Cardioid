@@ -33,3 +33,13 @@ class Singleton(type):
         if cls not in cls._instances:
             cls._instances[cls] = super().__call__(*args, **kwargs)
         return cls._instances[cls]
+
+
+def click_on_cross(type_event: int) -> bool:
+    """Predicate. Returns True if the window cross is clicked."""
+    return type_event == pg.QUIT
+
+
+def press_on_escape(type_event: int, key_event: int) -> bool:
+    """Predicate. Returns True if press to escape key on keyboard."""
+    return type_event == pg.KEYDOWN and key_event == pg.K_ESCAPE
