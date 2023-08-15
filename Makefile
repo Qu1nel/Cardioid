@@ -46,7 +46,7 @@ run:  ## Launch app (run.py)
 
 
 .PHONY: create-venv venv env
-create-venv:  ## Create virtual enviroment for Python
+create-venv:  ## Create virtual environment for Python
 	@if [ ! -d ".venv/" ]; then \
 		virtualenv .venv --prompt Python-TicTacToe 1>/dev/null; \
 		echo "$(GREEN)    Virtual env created!$(RESET)\n"; \
@@ -73,7 +73,7 @@ check: lint-check  ## Alias for 'lint-check'
 
 
 .PHONY: ruff
-ruff:  # Use 'ruff' utilite as linter
+ruff:  # Use 'ruff' utility as linter
 	@echo -e
 	@echo -e "$(BLUE)Applying ruff..."
 	@echo -e "$(GREEN)================$(RESET)"
@@ -82,7 +82,7 @@ ruff:  # Use 'ruff' utilite as linter
 	@echo -e
 
 .PHONY: mypy
-mypy:  # Use 'mypy' utilite as linter
+mypy:  # Use 'mypy' utility as linter
 	@echo -e
 	@echo -e "$(BLUE)Applying mypy..."
 	@echo -e "$(GREEN)================$(RESET)"
@@ -91,7 +91,7 @@ mypy:  # Use 'mypy' utilite as linter
 	@echo -e
 
 .PHONY: pyright
-pyright:  ## Use 'pyright' utilite as linter
+pyright:  ## Use 'pyright' utility as linter
 	@echo -e
 	@echo -e "$(BLUE)Applying pyright..."
 	@echo -e "$(GREEN)===================$(RESET)"
@@ -100,7 +100,7 @@ pyright:  ## Use 'pyright' utilite as linter
 	@echo -e
 
 .PHONY: black
-black:  ## Use 'black' utilite as formatter
+black:  ## Use 'black' utility as formatter
 	@echo -e
 	@echo -e "$(BLUE)Applying black..."
 	@echo -e "$(GREEN)=================$(RESET)"
