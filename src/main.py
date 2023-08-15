@@ -4,6 +4,8 @@ from typing import Never, Protocol
 
 import pygame as pg  # type: ignore
 
+from src.misc import Singleton
+
 
 class TApp(Protocol):
     """Protocol for App object."""
@@ -19,7 +21,7 @@ class TApp(Protocol):
         ...
 
 
-class Cardioid:
+class Cardioid(metaclass=Singleton):
     """Cardioid curve object class.
 
     Attributes:
@@ -92,7 +94,7 @@ class Cardioid:
             pg.draw.aaline(self.app.screen, color, (x1, y1), (x2, y2))
 
 
-class App:
+class App(metaclass=Singleton):
     """Application class for working with a window.
 
     Attributes:
