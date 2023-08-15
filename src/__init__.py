@@ -6,6 +6,9 @@ import pygame as pg  # type: ignore
 
 from src.main import App
 
+__author__ = "Qu1nel"
+__version__ = "1.1"
+
 
 def resource_path(relative_path: Path) -> Path:
     """Function for working paths inside an exe for python."""
