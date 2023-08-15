@@ -32,7 +32,7 @@ class Cardioid:
 
     Methods:
         get_color(self, /) -> None: Gets a new color (pygame.Color) for cardioid.
-        draw(self, /) -> None: Drawing Cardioid ojbect on display by "self.app".
+        draw(self, /) -> None: Drawing Cardioid object on display by "self.app".
 
     """
 
@@ -52,11 +52,11 @@ class Cardioid:
         self.counter = 0.0
         self.inc = 0.0
 
-    def get_color(self) -> pg.Color:
+    def get_color(self) -> pg.color.Color:
         """Rotates the new cardioid color (gradient) relative to the counter.
 
         Returns:
-            pygame.Color
+            pygame.color.Color
 
         """
         self.counter += self.inc
@@ -64,18 +64,18 @@ class Cardioid:
         if not (0 < self.counter < 1):
             self.counter, self.inc = (max(min(self.counter, 1), 0), -self.inc)
 
-        return pg.Color("red").lerp("green", self.counter)
+        return pg.Color("blue").lerp("yellow", self.counter)
 
     def draw(self) -> None:
         """Draws (self) the figure on the screen."""
         time = pg.time.get_ticks()
         factor = 1 + 0.001 * time
 
-        def _get_x(theta: float) -> int:
-            return -int(self.radius * math.cos(theta)) + self.position[0]
+        def _get_x(delta: float) -> int:
+            return -int(self.radius * math.cos(delta)) + self.position[0]
 
-        def _get_y(theta: float) -> int:
-            return int(self.radius * math.sin(theta)) + self.position[1]
+        def _get_y(delta: float) -> int:
+            return int(self.radius * math.sin(delta)) + self.position[1]
 
         self.radius = abs(math.sin(time * 0.008) - 0.5) * 15 + 350
 
@@ -88,7 +88,8 @@ class Cardioid:
             x2 = _get_x(theta * factor)
             y2 = _get_y(theta * factor)
 
-            pg.draw.aaline(self.app.screen, "yellow", (x1, y1), (x2, y2))  # 'yellow' = self.get_color()
+            color = "yellow"  # self.get_color()
+            pg.draw.aaline(self.app.screen, color, (x1, y1), (x2, y2))
 
 
 class App:
@@ -142,4 +143,4 @@ class App:
                     pg.quit()
                     sys.exit()
 
-            self.clock.tick(60)
+            self.clock.tick(144)
