@@ -19,7 +19,6 @@ class Cardioid(metaclass=Singleton):
         inc: Counter increment value for changing the cardioid color state.
 
     Methods:
-        get_color(self, /) -> None: Gets a new color (pygame.Color) for cardioid.
         draw(self, /) -> None: Drawing Cardioid object on display by "self.app".
 
     """
@@ -41,20 +40,6 @@ class Cardioid(metaclass=Singleton):
         self.counter = 0.0
         self.inc = 0.0
 
-    def get_color(self) -> pg.color.Color:
-        """Rotates the new cardioid color (gradient) relative to the counter.
-
-        Returns:
-            pygame.color.Color
-
-        """
-        self.counter += self.inc
-
-        if not (0 < self.counter < 1):
-            self.counter, self.inc = (max(min(self.counter, 1), 0), -self.inc)
-
-        return pg.Color("blue").lerp("yellow", self.counter)
-
     def draw(self) -> None:
         """Draws (self) the figure on the screen."""
         time = pg.time.get_ticks()
@@ -74,7 +59,7 @@ class Cardioid(metaclass=Singleton):
             start_position_line = Position(x=_get_x(theta), y=_get_y(theta))
             end_position_line = Position(x=_get_x(theta * factor), y=_get_y(theta * factor))
 
-            color = "yellow"  # self.get_color()
+            color = "yellow"
             pg.draw.aaline(self.app.screen, color, start_position_line, end_position_line)
 
 
