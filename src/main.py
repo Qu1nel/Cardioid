@@ -107,7 +107,7 @@ class App(metaclass=Singleton):
             self.draw()
 
             for event in pg.event.get():
-                if click_on_cross(event.type) or press_on_escape(event.type, event.key):
+                if click_on_cross(event.type) or event.type == pg.KEYDOWN and press_on_escape(event.key):
                     pg.quit()
                     sys.exit()
 
