@@ -19,9 +19,12 @@ icon_name = "icon.png"
 icon_folder_name = "icons"
 icon_path = Path(icon_folder_name) / Path(icon_name)
 
-icon = pg.image.load(resource_path(icon_path))
+try:
+    icon = pg.image.load(resource_path(icon_path))
+    pg.display.set_icon(icon)
+except FileNotFoundError:
+    pass
 
-pg.display.set_icon(icon)
 pg.display.set_caption("Cardioid")
 
 
