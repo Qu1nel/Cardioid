@@ -27,8 +27,4 @@ except FileNotFoundError:
 
 pg.display.set_caption("Cardioid")
 
-
-def main() -> None:
-    """Entry point to the game."""
-    game = App()
-    game.run()
+GameAppCardioid = App()
