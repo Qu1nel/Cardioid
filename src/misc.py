@@ -1,3 +1,4 @@
+from abc import ABCMeta
 from typing import Any, ClassVar, NamedTuple, Protocol
 
 import pygame as pg  # type: ignore
@@ -24,7 +25,7 @@ class AppType(Protocol):
         ...
 
 
-class Singleton(type):
+class SingletonABC(ABCMeta):
     """Class template singleton."""
 
     _instances: ClassVar[dict] = {}

@@ -4,10 +4,10 @@ from typing import Never
 
 import pygame as pg  # type: ignore
 
-from src.misc import AppType, Position, Singleton, click_on_cross, press_on_escape
+from src.misc import AppType, Position, SingletonABC, click_on_cross, press_on_escape
 
 
-class Cardioid(metaclass=Singleton):
+class Cardioid(metaclass=SingletonABC):
     """Cardioid curve object class.
 
     Attributes:
@@ -63,7 +63,7 @@ class Cardioid(metaclass=Singleton):
             pg.draw.aaline(self.app.screen, color, start_position_line, end_position_line)
 
 
-class App(metaclass=Singleton):
+class App(metaclass=SingletonABC):
     """Application class for working with a window.
 
     Attributes:
