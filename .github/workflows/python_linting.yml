@@ -2,9 +2,9 @@ name: Linting
 
 on:
   pull_request:
-    branches: [ "main" ]
+    branches: ["main"]
   push:
-    branches: [ "main" ]
+    branches: ["main"]
 
 jobs:
   check:
@@ -16,24 +16,22 @@ jobs:
       - name: Install Python
         uses: actions/setup-python@v4
         with:
-          python-version: '3.11'
+          python-version: "3.11"
+
+      - name: Install poetry
+        run: curl -sSL https://install.python-poetry.org | python3 -
 
       - name: Install dependencies
-        run: |
-          pip install -r requirements.txt
-          pip install ruff
-          pip install mypy
-          pip install pyright
-          pip install black
+        run: poetry install
 
       - name: Run ruff
-        run: ruff check . --fix
+        run: poetry run ruff check . --fix
 
       - name: Run mypy
-        run: mypy .
+        run: poetry run mypy .
 
       - name: Run pyright
-        run: pyright .
+        run: poetry run pyright .
 
       - name: Run black
-        run: black .
+        run: poetry run black .
