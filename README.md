@@ -95,18 +95,12 @@ Make sure that all [requirements](#requirements) are met.
 
 ### Requirements
 
-_The Python interpreter version 3.11+_
+_The `Python` interpreter version 3.11+ and preferably `poetry`_
 
-All python dependencies specified in the file [requirements.txt](./requirements.txt)
-
-```bash
-pip install -r requirements.txt
-```
-
-Install requirements with make:
+Install requirements with `poetry`:
 
 ```bash
-make install-requirements
+poetry install
 ```
 
 ## Getting started
@@ -118,13 +112,16 @@ git clone https://github.com/Qu1nel/Cardioid.git
 cd Cardioid/
 ```
 
-If you have the `make` installed, you can immediately create, activate the virtual environment and run the game with the command:
+If you have the `make` and `poetry` installed, you can run the game with the command:
 
 ```bash
-make init
-source .venv/bin/activate
-make install-requirements
 make run
+```
+
+Or
+
+```bash
+poetry run python run.py
 ```
 
 Or you can simply run `run.py` using the python interpreter
