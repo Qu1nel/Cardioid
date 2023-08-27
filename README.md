@@ -91,7 +91,6 @@ Cardioid - visualization of an interesting version of this curve in animation.
 ## Installation
 
 Clone the repository and run the file `run.py`.
-Make sure that all [requirements](#requirements) are met.
 
 ### Requirements
 
