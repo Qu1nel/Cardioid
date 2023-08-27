@@ -95,7 +95,7 @@ Make sure that all [requirements](#requirements) are met.
 
 ### Requirements
 
-_The `Python` interpreter version 3.11+ and preferably `poetry`_
+_The `Python` interpreter version 3.11+ and preferably [`poetry`](https://python-poetry.org/)_
 
 Install requirements with `poetry`:
 
