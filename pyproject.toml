@@ -1,3 +1,27 @@
+[tool.poetry]
+name = "Cardioid"
+version = "1.1"
+description = "Cardioid - visualization of an interesting version of this curve in animation"
+authors = ["Ivan Kovach <eeiprex@gmail.com>"]
+license = "MIT"
+readme = "README.md"
+repository = "https://github.com/Qu1nel/Cardioid"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+pygame = "^2.5.1"
+
+[tool.poetry.group.dev.dependencies]
+ruff = "^0.0.286"
+mypy = "^1.5.1"
+black = "^23.7.0"
+pyright = "^1.1.324"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+
 [project]
 name = "Cardioid"
 description = "Cardioid - visualization of an interesting version of this curve in animation"
