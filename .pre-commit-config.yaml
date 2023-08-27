@@ -2,54 +2,43 @@ repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v4.4.0
     hooks:
-      # обрезает конечные пробелы
       - id: trailing-whitespace
-        # проверяет файлы yaml на наличие разборчивого синтаксиса
       - id: check-yaml
-        # проверяет файлы toml на синтаксис, который можно разобрать
       - id: check-toml
-        # Проверяет xml-файлы на наличие разборчивого синтаксиса
       - id: check-xml
-        # проверяет наличие переноса строки в конце всех текстовых файлов
       - id: end-of-file-fixer
-        # предупреждает о добавлении больших файлов в Git
+      - id: mixed-line-ending
       - id: check-added-large-files
-        # предупреждает о сохранении файлов с UTF-8 BOM
       - id: check-byte-order-marker
-        # предотвращает сохранение приватных ключей
       - id: detect-private-key
-        # проверяет, что файлы, которые мы собираемся сохранять, как минимум валидный Python
       - id: check-ast
-        # гарантирует, что (небинарные) исполняемые файлы имеют шебанг
       - id: check-executables-have-shebangs
-        # гарантирует, что (небинарные) файлы с шебангом исполняемые
       - id: check-shebang-scripts-are-executable
-        # проверяет json-файлы на наличие разборчивого синтаксиса
-      - id: check-json
+      - id: detect-private-key
   - repo: local
     hooks:
       - id: ruff
         name: ruff
-        entry: ruff check .
+        entry: poetry run ruff check .
         require_serial: true
         language: system
         types: [python]
       - id: mypy
         name: mypy
-        entry: mypy .
+        entry: poetry run mypy .
         require_serial: true
         language: system
         types: [python]
         pass_filenames: false
       - id: pyright
         name: pyright
-        entry: pyright .
+        entry: poetry run pyright .
         require_serial: true
         language: system
         types: [python]
         pass_filenames: false
       - id: black
         name: black
-        entry: black .
+        entry: poetry run black .
         language: system
         types: [python]
