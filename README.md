@@ -94,7 +94,7 @@ Clone the repository and run the file `run.py`.
 
 ### Requirements
 
-_The `Python` interpreter version 3.11+ and preferably [`poetry`](https://python-poetry.org/)_
+_The [`Python`](https://www.python.org/downloads/) interpreter version 3.11+ and preferably [`poetry`](https://python-poetry.org/)_
 
 Install requirements with `poetry`:
 
