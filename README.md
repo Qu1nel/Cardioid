@@ -55,7 +55,7 @@
 
 # Contents
 
-- [About the Project](#about-tictactoe)
+- [About the Project](#about-cardioid)
   - [Demo](#view-demo)
   - [Screenshots](#screenshots)
 - [Installation](#installation)
